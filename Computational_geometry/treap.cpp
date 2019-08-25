@@ -16,9 +16,9 @@ int cnt(int t){
     return t ? T[t].cnt : 0;
 }
 
-int upd(int t){
+void upd(int t){
     if(t) 
-	T[t].cnt = cnt(T[t].l) + 1 + cnt(T[t].r);
+		T[t].cnt = cnt(T[t].l) + 1 + cnt(T[t].r);
 }
 
 // split tree with root t in the trees l, r
@@ -28,9 +28,9 @@ int upd(int t){
 void split(int t, int& l, int& r, int key){
     if(t == 0) l = r = 0;
     else if(T[t].key < key) 
-	split(T[t].r, T[t].r, r, key), l = t;
+		split(T[t].r, T[t].r, r, key), l = t;
     else
-	split(T[t].l, l, T[t].l, key), r = t;
+		split(T[t].l, l, T[t].l, key), r = t;
     upd(t);
 }
 
@@ -39,7 +39,7 @@ void split(int t, int& l, int& r, int key){
 void merge(int& t, int l, int r){
     if(l == 0 or r == 0) t = l ^ r;
     else if(T[l].prior < T[r].prior)
-	merge(T[l].r, T[l].r, r), t = l;
+		merge(T[l].r, T[l].r, r), t = l;
     else
         merge(T[r].l, l, T[r].l), t = r;
     upd(t);
@@ -50,8 +50,8 @@ void insert(int& t, int key, int prior){
     T[++elements] = {key, prior, 0, 0, 1};
     if(t == 0) t = elements;
     else{
-	int r;
-	split(t, t, r, key);
+		int r;
+		split(t, t, r, key);
         merge(t, t, elements);
         merge(t, t, r);
     }
@@ -66,7 +66,6 @@ void erase(int& t, int key){
 }
 
 int main(){
-
 
     return 0;
 }
